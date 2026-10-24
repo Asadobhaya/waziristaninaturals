@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FCFAF6" />
+      <stop offset="100%" stop-color="#EBE3D3" />
+    </radialGradient>
+    <linearGradient id="bottleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#142B20" />
+      <stop offset="40%" stop-color="#244B38" />
+      <stop offset="70%" stop-color="#1A382A" />
+      <stop offset="100%" stop-color="#0F241A" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bgGrad)" />
+  <ellipse cx="300" cy="520" rx="130" ry="20" fill="#0F291E" opacity="0.15" />
+  <!-- Four bottles side by side indicating the 4 sizes: 250ml, 500ml, 750ml, 1000ml -->
+  <!-- 250ml -->
+  <g transform="translate(110, 240) scale(0.65)">
+    <rect x="0" y="40" width="60" height="260" rx="10" fill="url(#bottleGrad)" />
+    <rect x="15" y="0" width="30" height="50" fill="#B89242" />
+    <text x="30" y="340" font-family="sans-serif" font-size="20" font-weight="bold" fill="#0F291E" text-anchor="middle">250 ml</text>
+  </g>
+  <!-- 500ml -->
+  <g transform="translate(200, 190) scale(0.78)">
+    <rect x="0" y="45" width="70" height="310" rx="10" fill="url(#bottleGrad)" />
+    <rect x="20" y="0" width="30" height="55" fill="#B89242" />
+    <text x="35" y="390" font-family="sans-serif" font-size="20" font-weight="bold" fill="#0F291E" text-anchor="middle">500 ml</text>
+  </g>
+  <!-- 750ml -->
+  <g transform="translate(300, 150) scale(0.88)">
+    <rect x="0" y="50" width="75" height="350" rx="12" fill="url(#bottleGrad)" />
+    <rect x="22" y="0" width="32" height="60" fill="#B89242" />
+    <text x="37" y="435" font-family="sans-serif" font-size="20" font-weight="bold" fill="#0F291E" text-anchor="middle">750 ml</text>
+  </g>
+  <!-- 1000ml -->
+  <g transform="translate(410, 110) scale(1)">
+    <rect x="0" y="55" width="80" height="380" rx="14" fill="url(#bottleGrad)" />
+    <rect x="24" y="0" width="34" height="65" fill="#B89242" />
+    <text x="40" y="475" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0F291E" text-anchor="middle">1000 ml (1 L)</text>
+  </g>
+  <text x="300" y="80" font-family="'Times New Roman', serif" font-size="24" font-weight="bold" fill="#0F291E" text-anchor="middle" letter-spacing="1">FOUR DISTINCT SIZES</text>
+  <text x="300" y="105" font-family="sans-serif" font-size="14" fill="#5F7047" text-anchor="middle">Carefully calibrated for every household need</text>
+</svg>

@@ -1,0 +1,8 @@
+# Robots.txt for WAZIRISTANI E-commerce Storefront
+User-agent: *
+Allow: /
+Disallow: /cart
+Disallow: /checkout
+
+# Sitemap reference
+Sitemap: https://waziristaninaturals.netlify.app/sitemap.xml

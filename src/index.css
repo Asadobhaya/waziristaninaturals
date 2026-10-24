@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #FAF8F4;
+    color: #141816;
+    overflow-x: hidden;
+  }
+
+  /* Urdu typography refinements */
+  [dir="rtl"], .rtl-mode {
+    font-family: 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Jameel Noori Nastaleeq', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  [dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] a, [dir="rtl"] button {
+    line-height: 1.8;
+  }
+
+  /* Keep numbers in English LTR readability even in RTL containers */
+  .number-ltr {
+    direction: ltr !important;
+    unicode-bidi: embed;
+    display: inline-block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shimmerEffect {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes floatSlowAlt {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes truckDrive {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(201, 163, 84, 0.25), 0 0 0 1px rgba(201, 163, 84, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(201, 163, 84, 0.5), 0 0 0 2px rgba(201, 163, 84, 0.6);
+  }
+}
+
+@keyframes borderGlowPulse {
+  0%, 100% {
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    border-color: rgba(201, 163, 84, 0.65);
+    box-shadow: 0 12px 35px -8px rgba(201, 163, 84, 0.35);
+  }
+}
+
+@keyframes badgeHeartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-shimmer-bar {
+  background: linear-gradient(90deg, #07160F 0%, #0F291E 35%, #1A4331 50%, #0F291E 65%, #07160F 100%);
+  background-size: 200% 100%;
+  animation: shimmerEffect 7s infinite linear;
+}
+
+.animate-float-slow {
+  animation: floatSlow 3.8s ease-in-out infinite;
+}
+
+.animate-float-alt {
+  animation: floatSlowAlt 3.8s ease-in-out infinite;
+}
+
+.animate-truck-drive {
+  animation: truckDrive 2.2s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlowPulse 4s ease-in-out infinite;
+}
+
+.animate-badge-heartbeat {
+  animation: badgeHeartbeat 2.2s ease-in-out infinite;
+}
