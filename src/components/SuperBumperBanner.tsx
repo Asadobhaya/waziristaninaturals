@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Sparkles, Plus, ShoppingBag, ArrowRight, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
-import { formatPrice } from '../lib/pricing';
 import { trackEvent } from '../lib/analytics';
 
 interface SuperBumperBannerProps {
