@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { Check, ShoppingBag, Truck, Shield, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, ShoppingBag, Truck, ArrowRight, Sparkles } from 'lucide-react';
 import { getProductById, ProductVariant } from '../config/products';
 import { ProductGallery } from '../components/ProductGallery';
 import { VariantSelector } from '../components/VariantSelector';

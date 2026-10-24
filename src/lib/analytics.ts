@@ -18,7 +18,8 @@ export interface AnalyticsEvent {
     | 'whatsapp_order_clicked'
     | 'whatsapp_direct_clicked'
     | 'contact_inquiry_attempted'
-    | 'contact_inquiry_submitted';
+    | 'contact_inquiry_submitted'
+    | 'super_bumper_bundle_claimed';
   payload?: Record<string, unknown>;
   timestamp?: string;
 }
