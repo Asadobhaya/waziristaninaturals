@@ -49,8 +49,7 @@ export const products: Product[] = [
       "/assets/images/products/zaitoon-oil-250ml.jpg",
       "/assets/images/products/zaitoon-oil-500ml.jpg",
       "/assets/images/products/zaitoon-oil-750ml.jpg",
-      "/assets/images/products/zaitoon-oil-1000ml.jpg",
-      "/assets/images/products/combo-bundle-board.jpg"
+      "/assets/images/products/zaitoon-oil-1000ml.jpg"
     ],
     variants: [
       { id: "250ml", size: "250 ml", price: 1700, label: "250 ml", image: "/assets/images/products/zaitoon-oil-250ml.jpg" },
@@ -91,8 +90,7 @@ export const products: Product[] = [
     galleryImages: [
       "/assets/images/products/shilajit-full-kit.jpg",
       "/assets/images/products/shilajit-box.jpg",
-      "/assets/images/products/shilajit-jar.jpg",
-      "/assets/images/products/combo-bundle-board.jpg"
+      "/assets/images/products/shilajit-jar.jpg"
     ],
     price: 2000,
     badge: "Net Wt: 10 G + Spoon",
