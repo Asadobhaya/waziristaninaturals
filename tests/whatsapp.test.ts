@@ -23,7 +23,7 @@ describe('WhatsApp Message Generation & URL Encoding', () => {
         variantSize: '250 ml',
         unitPrice: 1700,
         quantity: 2,
-        image: '/assets/images/zaitoon-oil.svg'
+        image: '/assets/images/products/zaitoon-oil-250ml.jpg'
       },
       {
         id: 'shilajit_standard',
@@ -32,7 +32,7 @@ describe('WhatsApp Message Generation & URL Encoding', () => {
         productNameUrdu: 'وزیرستانی خالص سلاجیت',
         unitPrice: 2000,
         quantity: 1,
-        image: '/assets/images/shilajit.svg'
+        image: '/assets/images/products/shilajit-full-kit.jpg'
       }
     ];
 
@@ -100,7 +100,7 @@ describe('WhatsApp Message Generation & URL Encoding', () => {
         productNameUrdu: 'وزیرستانی خالص سلاجیت',
         unitPrice: 2000,
         quantity: 1,
-        image: '/assets/images/products/shilajit-top.jpg'
+        image: '/assets/images/products/shilajit-full-kit.jpg'
       }
     ];
 

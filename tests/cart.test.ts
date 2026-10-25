@@ -14,7 +14,7 @@ describe('Cart State & Item Reconciliation', () => {
       variantSize: '250 ml',
       unitPrice: 1700,
       quantity: 1,
-      image: '/assets/images/zaitoon-oil.svg'
+      image: '/assets/images/products/zaitoon-oil-250ml.jpg'
     });
 
     list = addItemToCartList(list, {
@@ -25,7 +25,7 @@ describe('Cart State & Item Reconciliation', () => {
       variantSize: '500 ml',
       unitPrice: 3300,
       quantity: 1,
-      image: '/assets/images/zaitoon-oil.svg'
+      image: '/assets/images/products/zaitoon-oil-250ml.jpg'
     });
 
     expect(list.length).toBe(2);
@@ -44,7 +44,7 @@ describe('Cart State & Item Reconciliation', () => {
       variantSize: '250 ml',
       unitPrice: 1700,
       quantity: 1,
-      image: '/assets/images/zaitoon-oil.svg'
+      image: '/assets/images/products/zaitoon-oil-250ml.jpg'
     });
 
     list = addItemToCartList(list, {
@@ -55,7 +55,7 @@ describe('Cart State & Item Reconciliation', () => {
       variantSize: '250 ml',
       unitPrice: 1700,
       quantity: 2,
-      image: '/assets/images/zaitoon-oil.svg'
+      image: '/assets/images/products/zaitoon-oil-250ml.jpg'
     });
 
     expect(list.length).toBe(1);
