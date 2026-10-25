@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, ArrowRight, Eye, Check, Sparkles } from 'lucide-react';
+import { ShoppingBag, Check, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Product, ProductVariant } from '../config/products';
 import { VariantSelector } from './VariantSelector';
 import { QuantitySelector } from './QuantitySelector';
 import { WhatsAppButton } from './WhatsAppButton';
-import { formatPrice, calculateCartTotals } from '../lib/pricing';
-import { buildSingleProductWhatsAppMessage } from '../lib/whatsapp';
+import { formatPrice } from '../lib/pricing';
+import { buildSimpleWhatsAppOrderMessage } from '../lib/whatsapp';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { trackEvent } from '../lib/analytics';
@@ -20,7 +20,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
   const { language } = useLanguage();
   const { addItem } = useCart();
 
-  // If product has variants, default to first variant (250ml at 1700)
+  // If product has variants, default to 250ml (Rs. 1,700)
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(() => {
     return product.variants && product.variants.length > 0 ? product.variants[0] : undefined;
   });
@@ -47,7 +47,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
       variantId: selectedVariant?.id,
       productName: product.name,
       productNameUrdu: product.nameUrdu,
-      variantSize: selectedVariant?.size,
+      variantSize: selectedVariant?.size || (product.id === 'shilajit' ? '10 G' : undefined),
       unitPrice: currentPrice,
       quantity,
       image: selectedVariant?.image || product.image
@@ -57,34 +57,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
     setTimeout(() => setJustAdded(false), 2000);
   };
 
+  // Mandated WhatsApp format: "Assalam o Alaikum, I want to order [product] [size] – Qty [n]"
   const getWhatsAppMessage = () => {
-    const singleTotals = calculateCartTotals([
-      {
-        id: 'temp',
-        productId: product.id,
-        variantId: selectedVariant?.id,
-        productName: product.name,
-        productNameUrdu: product.nameUrdu,
-        variantSize: selectedVariant?.size,
-        unitPrice: currentPrice,
-        quantity,
-        image: selectedVariant?.image || product.image
-      }
-    ]);
-    return buildSingleProductWhatsAppMessage(
-      product.name,
-      selectedVariant?.size,
-      currentPrice,
-      quantity,
-      singleTotals
-    );
+    const size = selectedVariant?.size || (product.id === 'shilajit' ? '10g' : undefined);
+    return buildSimpleWhatsAppOrderMessage(product.name, size, quantity);
   };
 
   return (
     <div
+      id={`card-${product.id}`}
       className={`group bg-white rounded-3xl border border-charcoal-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden ${className}`}
     >
-      {/* Product Image Container */}
+      {/* Product Image Stage */}
       <div className="relative aspect-square bg-ivory-100 overflow-hidden flex items-center justify-center p-6 border-b border-charcoal-100">
         <img
           src={displayImage}
@@ -95,42 +79,50 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
           height="400"
         />
 
-        {product.badge && (
-          <span className="absolute top-4 left-4 bg-forest-900/90 backdrop-blur-sm text-gold-300 text-[11px] font-semibold tracking-wider px-3 py-1 rounded-full border border-gold-400/30 uppercase">
-            {language === 'ur' ? (product.badgeUrdu || product.badge) : product.badge}
+        {/* In Stock Badge */}
+        <div className="absolute top-4 left-4 flex flex-col gap-1.5">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/90 backdrop-blur-sm text-emerald-300 text-[11px] font-bold tracking-wider border border-emerald-500/40 uppercase shadow-sm">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>{language === 'ur' ? 'دستیاب ہے (ان اسٹاک)' : 'In Stock'}</span>
           </span>
-        )}
 
-        <Link
-          to={`/products/${product.id}`}
-          className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-forest-900 hover:bg-forest-900 hover:text-white p-2.5 rounded-full shadow-md transition-all duration-200"
-          aria-label={language === 'ur' ? `${product.nameUrdu} کی تفصیلات دیکھیں` : `View details for ${product.name}`}
-        >
-          <Eye className="w-4 h-4" />
-        </Link>
+          {product.badge && (
+            <span className="inline-block bg-forest-900/90 backdrop-blur-sm text-gold-300 text-[10px] font-semibold tracking-wider px-2.5 py-0.5 rounded-full border border-gold-400/30 uppercase">
+              {language === 'ur' ? (product.badgeUrdu || product.badge) : product.badge}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Product Information */}
+      {/* Product Info & Controls */}
       <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
         <div>
           <div className="text-xs font-semibold text-olive-600 tracking-wider uppercase mb-1">
             {language === 'ur' ? product.categoryUrdu : product.category}
           </div>
 
-          <h3 className="text-xl font-serif font-bold text-forest-950 group-hover:text-forest-800 transition-colors">
-            <Link to={`/products/${product.id}`}>
-              {language === 'ur' ? product.nameUrdu : product.name}
-            </Link>
+          <h3 className="text-xl sm:text-2xl font-serif font-black text-forest-950">
+            {language === 'ur' ? product.nameUrdu : product.name}
           </h3>
 
-          <p className="text-xs text-charcoal-600 mt-1.5 line-clamp-2 leading-relaxed">
-            {language === 'ur' ? product.descriptionUrdu : product.description}
+          {/* Short Benefit Line */}
+          <p className="text-xs text-charcoal-600 mt-1 leading-relaxed">
+            {product.id === 'zaitoon-oil'
+              ? (language === 'ur'
+                  ? 'تازہ وزیرستانی زیتون سے قدرتی طریقے سے نکالا ہوا خالص و شفاف تیل'
+                  : '100% pure first cold-pressed extra virgin olive oil from Waziristan groves.')
+              : (language === 'ur'
+                  ? 'بلند پہاڑی چٹانوں سے روایتی فلٹریشن کے ساتھ تیار کردہ خالص رال'
+                  : 'Pure high-mountain mineral resin purified with natural spring water.')}
           </p>
         </div>
 
-        {/* Variant Selector (if product has sizes, e.g. Zaitoon Oil) */}
+        {/* Size Selector (Zaitoon Oil 4 sizes) */}
         {product.variants && selectedVariant && (
-          <div className="pt-2">
+          <div className="space-y-1.5 pt-1">
+            <label className="text-[11px] font-bold text-charcoal-700 uppercase tracking-wide block">
+              {language === 'ur' ? 'سائز منتخب کریں:' : 'Select Bottle Size:'}
+            </label>
             <VariantSelector
               variants={product.variants}
               selectedVariant={selectedVariant}
@@ -139,57 +131,53 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
           </div>
         )}
 
-        {/* Super Bumper eligibility callout */}
+        {/* Super Bumper Callout */}
         {product.id === 'shilajit' && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-forest-950 to-charcoal-900 text-gold-300 text-[11px] border border-emerald-500/40 shadow-sm">
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-forest-950 to-charcoal-900 text-gold-300 text-[11px] border border-emerald-500/40 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-gold-400 shrink-0" />
             <span className="font-medium">
               {language === 'ur'
-                ? 'سپر بمپر: 500ml+ تیل کے ساتھ 100 روپے رعایت!'
-                : 'Super Bumper: Save Rs. 100 with 500ml+ Olive Oil!'}
+                ? 'سپر بمپر: 500ml+ تیل کے ساتھ 100 روپے بچائیں!'
+                : 'Super Bumper: Save Rs. 100 when paired with 500ml+ Olive Oil!'}
             </span>
           </div>
         )}
 
-        {product.id === 'zaitoon-oil' && selectedVariant && selectedVariant.id !== '250ml' && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-forest-950 to-charcoal-900 text-gold-300 text-[11px] border border-emerald-500/40 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-            <span className="font-medium">
-              {language === 'ur'
-                ? 'سپر بمپر: سلاجیت کے ساتھ 100 روپے رعایت کی اہل سائز!'
-                : 'Super Bumper: Pair with Shilajit for Rs. 100 off!'}
-            </span>
-          </div>
-        )}
-
-        {/* Price and Dynamic Subtotal Display */}
-        <div className="pt-2 border-t border-charcoal-100 flex items-baseline justify-between">
+        {/* Price & Auto-Total Display */}
+        <div className="pt-3 border-t border-charcoal-100 flex items-baseline justify-between">
           <div>
-            <div className="text-[11px] text-charcoal-400 uppercase font-medium">
-              {language === 'ur' ? 'قیمت' : 'Price'}
+            <div className="text-[11px] text-charcoal-500 uppercase font-semibold">
+              {product.id === 'shilajit'
+                ? (language === 'ur' ? 'قیمت (10 گرام)' : 'Price / 10g Net Wt')
+                : (language === 'ur' ? `${selectedVariant?.size} کی قیمت` : `${selectedVariant?.size} Price`)}
             </div>
-            <div className="text-2xl font-serif font-bold text-forest-900">
+            <div className="text-2xl sm:text-3xl font-serif font-black text-forest-950">
               {formatPrice(currentPrice, language)}
+              {product.id === 'shilajit' && (
+                <span className="text-xs font-sans font-normal text-charcoal-500 ml-1.5">
+                  / 10g
+                </span>
+              )}
             </div>
           </div>
 
           {quantity > 1 && (
             <div className="text-right">
-              <div className="text-[11px] text-charcoal-400 uppercase font-medium">
-                {language === 'ur' ? 'کل رقم' : 'Subtotal'}
+              <div className="text-[11px] text-charcoal-500 uppercase font-semibold">
+                {language === 'ur' ? 'کل رقم' : 'Auto-Total'}
               </div>
-              <div className="text-sm font-semibold text-forest-700">
+              <div className="text-base sm:text-lg font-bold text-forest-800">
                 {formatPrice(currentPrice * quantity, language)}
               </div>
             </div>
           )}
         </div>
 
-        {/* Quantity and Actions */}
+        {/* Quantity Stepper & Actions */}
         <div className="space-y-3 pt-1">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-charcoal-600">
-              {language === 'ur' ? 'تعداد:' : 'Qty:'}
+            <span className="text-xs font-bold text-charcoal-700">
+              {language === 'ur' ? 'مقدار:' : 'Quantity:'}
             </span>
             <QuantitySelector
               quantity={quantity}
@@ -199,35 +187,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              className={`w-full py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 active:scale-95 ${
-                justAdded
-                  ? 'bg-forest-700 text-white shadow-inner'
-                  : 'bg-forest-900 hover:bg-forest-800 text-gold-300 shadow-md hover:shadow'
-              }`}
-            >
-              {justAdded ? (
-                <>
-                  <Check className="w-4 h-4 text-gold-400" />
-                  <span>{language === 'ur' ? 'شامل ہو گیا!' : 'Added!'}</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingBag className="w-4 h-4 text-gold-400" />
-                  <span>{language === 'ur' ? 'ٹوکری میں ڈالیں' : 'Add to Cart'}</span>
-                </>
-              )}
-            </button>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            {/* Primary Mandated Action: Order on WhatsApp */}
             <WhatsAppButton
               getMessage={getWhatsAppMessage}
               variant="primary"
-              size="sm"
-              label={language === 'ur' ? 'واٹس ایپ آرڈر' : 'Order on WA'}
-              className="w-full text-xs"
+              size="md"
+              label={language === 'ur' ? 'واٹس ایپ پر آرڈر کریں' : 'Order on WhatsApp'}
+              className="w-full text-xs sm:text-sm py-3"
               eventName="whatsapp_direct_clicked"
               eventPayload={{
                 productId: product.id,
@@ -236,14 +203,37 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
                 unitPrice: currentPrice
               }}
             />
+
+            {/* Secondary Action: Add to Cart */}
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className={`w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 min-h-[44px] active:scale-95 ${
+                justAdded
+                  ? 'bg-forest-700 text-white shadow-inner'
+                  : 'bg-forest-950 hover:bg-forest-900 text-gold-300 border border-gold-400/30 shadow-md'
+              }`}
+            >
+              {justAdded ? (
+                <>
+                  <Check className="w-4 h-4 text-gold-400" />
+                  <span>{language === 'ur' ? 'ٹوکری میں شامل!' : 'Added to Cart!'}</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4 text-gold-400" />
+                  <span>{language === 'ur' ? 'ٹوکری میں ڈالیں' : 'Add to Cart'}</span>
+                </>
+              )}
+            </button>
           </div>
 
+          {/* Quick link to detailed specs */}
           <Link
             to={`/products/${product.id}`}
-            className="w-full py-2 text-center text-xs font-semibold text-forest-800 hover:text-gold-600 hover:underline flex items-center justify-center gap-1 transition-colors"
+            className="w-full pt-1 text-center text-xs font-semibold text-charcoal-500 hover:text-forest-900 transition-colors inline-block"
           >
-            <span>{language === 'ur' ? 'مکمل معلومات اور گیلری' : 'View Full Details & Specs'}</span>
-            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            {language === 'ur' ? 'مکمل لیب نوٹس اور غذائی تفصیلات &larr;' : 'View detailed lab notes & full specs &rarr;'}
           </Link>
         </div>
       </div>

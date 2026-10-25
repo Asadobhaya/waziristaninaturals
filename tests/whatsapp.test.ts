@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { buildOrderWhatsAppMessage, createWhatsAppUrl, buildContactFormWhatsAppMessage } from '../src/lib/whatsapp';
+import { 
+  buildOrderWhatsAppMessage, 
+  createWhatsAppUrl, 
+  buildContactFormWhatsAppMessage,
+  buildSimpleWhatsAppOrderMessage 
+} from '../src/lib/whatsapp';
 import { CartItem, CartTotals, CustomerDetails } from '../src/types';
 
 describe('WhatsApp Message Generation & URL Encoding', () => {
@@ -134,5 +139,17 @@ describe('WhatsApp Message Generation & URL Encoding', () => {
     expect(text).toContain('*Phone:* 03001234567');
     expect(text).toContain('*Subject:* Bulk olive oil order');
     expect(text).toContain('Interested in 5 bottles of 1 litre olive oil.');
+  });
+
+  it('generates the conversion-mandated simple prefilled order message', () => {
+    const oilMsg = buildSimpleWhatsAppOrderMessage('Waziristani Zaitoon Oil', '500 ml', 2);
+    expect(oilMsg).toBe('Assalam o Alaikum, I want to order Waziristani Zaitoon Oil 500 ml – Qty 2');
+
+    const shilajitMsg = buildSimpleWhatsAppOrderMessage('Waziristani Shilajit', '10g', 1);
+    expect(shilajitMsg).toBe('Assalam o Alaikum, I want to order Waziristani Shilajit 10g – Qty 1');
+
+    const encoded = createWhatsAppUrl('923348007049', oilMsg);
+    expect(encoded).toContain('https://wa.me/923348007049?text=');
+    expect(encoded).toContain(encodeURIComponent('Assalam o Alaikum, I want to order Waziristani Zaitoon Oil 500 ml – Qty 2'));
   });
 });

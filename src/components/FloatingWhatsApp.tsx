@@ -19,11 +19,11 @@ export const FloatingWhatsApp: React.FC = () => {
 
   return (
     <>
-      <div className="fixed bottom-20 md:bottom-6 left-6 z-40 group">
+      <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 group">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="relative flex items-center gap-2.5 p-3.5 md:p-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xl hover:shadow-emerald-600/40 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="relative flex items-center gap-2 p-3.5 md:p-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl hover:shadow-emerald-600/40 transition-all duration-300 hover:scale-105 active:scale-95 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-gold-400"
           aria-label="Direct WhatsApp Assistance"
         >
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">

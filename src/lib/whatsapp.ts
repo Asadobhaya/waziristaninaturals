@@ -54,6 +54,19 @@ export function buildOrderWhatsAppMessage(
 }
 
 /**
+ * Generate standard direct WhatsApp order message per conversion specification:
+ * "Assalam o Alaikum, I want to order [product] [size] – Qty [n]"
+ */
+export function buildSimpleWhatsAppOrderMessage(
+  productName: string,
+  variantSize: string | undefined,
+  quantity: number
+): string {
+  const sizeString = variantSize ? ` ${variantSize}` : '';
+  return `Assalam o Alaikum, I want to order ${productName}${sizeString} – Qty ${quantity}`;
+}
+
+/**
  * Generate quick single-product order message (for direct WhatsApp order buttons)
  */
 export function buildSingleProductWhatsAppMessage(

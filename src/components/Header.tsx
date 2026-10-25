@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Menu, X } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useCart } from '../context/CartContext';
@@ -8,20 +8,60 @@ import { useLanguage } from '../context/LanguageContext';
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totals, setIsDrawerOpen } = useCart();
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const navLinks = [
-    { to: '/', label: t('home') },
-    { to: '/products', label: t('products') },
-    { to: '/about', label: t('about') },
-    { to: '/contact', label: t('contact') },
+  const navItems = [
+    { id: 'products', label: language === 'ur' ? 'مصنوعات' : 'Products' },
+    { id: 'why-us', label: language === 'ur' ? 'ہمیں کیوں چنیں' : 'Why Us' },
+    { id: 'reviews', label: language === 'ur' ? 'گاہکوں کی رائے' : 'Reviews' },
+    { id: 'faq', label: language === 'ur' ? 'عمومی سوالات' : 'FAQ' },
+    { id: 'contact', label: language === 'ur' ? 'رابطہ' : 'Contact' },
   ];
 
-  const isActive = (path: string) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
-    return false;
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (location.pathname === '/') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      navigate(`/#${sectionId}`);
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
   };
 
   return (
@@ -31,6 +71,7 @@ export const Header: React.FC = () => {
           {/* Logo / Brand */}
           <Link
             to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-gold-400 rounded-lg p-1"
             aria-label="Waziristani Naturals Home"
           >
@@ -53,32 +94,29 @@ export const Header: React.FC = () => {
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`transition-colors py-1 relative ${
-                  isActive(link.to)
-                    ? 'text-gold-300 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-gold-400'
-                    : 'text-ivory-100/90 hover:text-gold-300'
-                }`}
+          {/* Desktop Single-Page Nav Links */}
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium" aria-label="Main Navigation">
+            {navItems.map(item => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className="text-ivory-100/90 hover:text-gold-300 py-2 transition-colors relative font-semibold"
               >
-                {link.label}
-              </Link>
+                {item.label}
+              </a>
             ))}
           </nav>
 
-          {/* Actions: Language Switcher + Cart */}
+          {/* Header Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
             <LanguageSwitcher className="hidden sm:inline-flex" />
 
-            {/* Cart Trigger */}
+            {/* Shopping Cart Button */}
             <button
               type="button"
               onClick={() => setIsDrawerOpen(true)}
-              className="relative p-2.5 rounded-xl bg-forest-950/80 hover:bg-forest-950 text-gold-400 border border-gold-400/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center shadow-sm"
+              className="relative p-2.5 min-w-[44px] min-h-[44px] rounded-xl bg-forest-950/80 hover:bg-forest-950 text-gold-400 border border-gold-400/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center shadow-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
               aria-label={`Open shopping cart. ${totals.itemCount} items currently in cart.`}
             >
               <ShoppingBag className="w-5 h-5" />
@@ -93,9 +131,10 @@ export const Header: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="md:hidden p-2 rounded-xl text-ivory-100 hover:text-white hover:bg-forest-800 transition-colors"
+              className="lg:hidden p-2.5 min-w-[44px] min-h-[44px] rounded-xl text-ivory-100 hover:text-white hover:bg-forest-900 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold-400"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -105,41 +144,43 @@ export const Header: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-forest-950 border-b border-forest-800 px-5 pt-3 pb-6 space-y-4 animate-slide-up">
-          <div className="flex justify-between items-center py-2 border-b border-forest-800/80">
-            <span className="text-xs text-ivory-100/70">{t('menu')}</span>
-            <LanguageSwitcher />
+        <div
+          id="mobile-navigation"
+          className="lg:hidden fixed inset-0 top-20 z-40 bg-forest-950/98 backdrop-blur-xl border-t border-forest-800/80 flex flex-col justify-between p-6 overflow-y-auto animate-fade-in"
+        >
+          <div className="space-y-6">
+            <div className="pb-4 border-b border-forest-800/60 flex items-center justify-between">
+              <span className="text-xs uppercase tracking-widest text-gold-400 font-bold">
+                {language === 'ur' ? 'نیویگیشن' : 'Navigation Menu'}
+              </span>
+              <LanguageSwitcher />
+            </div>
+
+            <nav className="flex flex-col space-y-4">
+              {navItems.map(item => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                  className="text-lg font-serif font-bold text-ivory-50 hover:text-gold-300 py-2 border-b border-forest-900/60 transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
           </div>
 
-          <nav className="flex flex-col space-y-2 text-base font-medium">
-            {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors ${
-                  isActive(link.to)
-                    ? 'bg-forest-800/90 text-gold-300 font-bold'
-                    : 'text-ivory-100 hover:bg-forest-800/50 hover:text-white'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setIsDrawerOpen(true);
-              }}
-              className="w-full text-left rtl:text-right py-2 px-3 rounded-lg text-gold-400 hover:bg-forest-800/50 font-bold flex items-center justify-between"
-            >
-              <span>{t('cart')}</span>
-              <span className="bg-gold-500 text-forest-950 text-xs px-2 py-0.5 rounded-full font-bold">
-                {totals.itemCount}
-              </span>
-            </button>
-          </nav>
+          <div className="pt-6 border-t border-forest-800/80 text-xs text-ivory-100/70 space-y-3">
+            <p className="font-serif text-sm font-bold text-gold-300">
+              {language === 'ur' ? 'وزیرستانی نیچرلز کسٹمر کیئر' : 'Waziristani Naturals Order Care'}
+            </p>
+            <p>
+              {language === 'ur' ? 'فون / واٹس ایپ:' : 'Direct WhatsApp:'}{' '}
+              <a href="https://wa.me/923348007049" className="text-gold-400 font-mono font-bold">
+                +92 334 8007049
+              </a>
+            </p>
+          </div>
         </div>
       )}
     </header>
