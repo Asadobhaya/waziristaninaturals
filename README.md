@@ -216,7 +216,7 @@ Upon deploying to Netlify:
 
 The following operational details have safe, non-fabricated defaults in place, but should be confirmed with the brand owners before public launch:
 
-1. **Custom Production Domain:** Configured to `https://waziristaninaturals.netlify.app/` (or `waziristaninaturals` on Netlify/Vercel). Update `public/robots.txt`, `public/sitemap.xml`, and `.env.example` once your custom apex domain (e.g., `waziristaninaturals.pk`) is connected.
+1. **Custom Production Domain:** Configured to `https://waziristaninaturals.vercel.app/` (or `waziristaninaturals` on Netlify/Vercel). Update `public/robots.txt`, `public/sitemap.xml`, and `.env.example` once your custom apex domain (e.g., `waziristaninaturals.pk`) is connected.
 2. **Standard Delivery Fee After Offer Expiry:** Currently set to `null` (`src/config/delivery.ts`). When the free promotion ends, provide the confirmed courier shipping fee.
 3. **Cash On Delivery (COD) Partner:** Defaulted to `false`. Once courier COD accounts (e.g., TCS, Leopard, Trax, PostEx) are confirmed, update `cashOnDeliveryConfirmed: true`.
 4. **Physical Product Photos:** Official real photographic product assets for all 4 olive oil bottle sizes (250ml, 500ml, 750ml, 1000ml), the complete Shilajit kit (box, jar, measuring spoon), and the combo display are integrated in `public/assets/images/products/`.

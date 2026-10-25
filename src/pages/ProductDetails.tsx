@@ -91,7 +91,7 @@ export const ProductDetails: React.FC = () => {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    image: `https://waziristaninaturals.netlify.app${product.image}`,
+    image: `https://waziristaninaturals.vercel.app${product.image}`,
     description: product.description,
     brand: {
       '@type': 'Brand',
@@ -104,14 +104,14 @@ export const ProductDetails: React.FC = () => {
           price: v.price,
           priceCurrency: 'PKR',
           availability: 'https://schema.org/InStock',
-          url: `https://waziristaninaturals.netlify.app/products/${product.id}`
+          url: `https://waziristaninaturals.vercel.app/products/${product.id}`
         }))
       : {
           '@type': 'Offer',
           price: product.price,
           priceCurrency: 'PKR',
           availability: 'https://schema.org/InStock',
-          url: `https://waziristaninaturals.netlify.app/products/${product.id}`
+          url: `https://waziristaninaturals.vercel.app/products/${product.id}`
         }
   };
 
