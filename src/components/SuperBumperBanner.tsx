@@ -21,7 +21,7 @@ export const SuperBumperBanner: React.FC<SuperBumperBannerProps> = ({ className 
       productNameUrdu: 'وزیرستانی گولڈ سلاجیت',
       unitPrice: 2000,
       quantity: 1,
-      image: '/assets/images/products/shilajit-top.jpg'
+      image: '/assets/images/products/shilajit-full-kit.jpg'
     }, false);
 
     // Add 1 x 500ml Zaitoon Oil
@@ -101,7 +101,7 @@ export const SuperBumperBanner: React.FC<SuperBumperBannerProps> = ({ className 
               {/* Shilajit Image */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-charcoal-950 border border-charcoal-700 p-2 flex flex-col items-center justify-center shadow-md animate-float-slow hover:scale-105 transition-transform duration-300">
                 <img
-                  src="/assets/images/products/shilajit-top.jpg"
+                  src="/assets/images/products/shilajit-box.jpg"
                   alt="Waziristani Shilajit 10G"
                   className="w-full h-full object-contain rounded-lg"
                   loading="lazy"

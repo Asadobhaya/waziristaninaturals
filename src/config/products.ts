@@ -43,15 +43,17 @@ export const products: Product[] = [
     taglineUrdu: "زیتون کے دانوں سے نکالا ہوا خالص و مستند تیل",
     description: "Pure, natural olive oil extracted directly from quality olives and sealed in protective amber packaging with a precision flip-top cap. Preserves natural aroma, rich viscosity, and golden-green purity across four convenient sizes.",
     descriptionUrdu: "تازہ زیتون کے دانوں سے روایتی مہارت کے ساتھ حاصل کردہ خالص زیتون کا تیل۔ فلپ ٹاپ محفوظ پیکنگ میں چار مختلف سائزز میں دستیاب۔",
-    image: "/assets/images/products/zaitoon-bottle-front.jpg",
+    image: "/assets/images/products/zaitoon-oil-all-sizes.jpg",
     galleryImages: [
-      "/assets/images/products/zaitoon-bottle-front.jpg",
+      "/assets/images/products/zaitoon-oil-all-sizes.jpg",
+      "/assets/images/products/zaitoon-oil-250ml.jpg",
       "/assets/images/products/zaitoon-oil-500ml.jpg",
       "/assets/images/products/zaitoon-oil-750ml.jpg",
-      "/assets/images/products/zaitoon-oil-1000ml.jpg"
+      "/assets/images/products/zaitoon-oil-1000ml.jpg",
+      "/assets/images/products/combo-bundle-board.jpg"
     ],
     variants: [
-      { id: "250ml", size: "250 ml", price: 1700, label: "250 ml", image: "/assets/images/products/zaitoon-bottle-front.jpg" },
+      { id: "250ml", size: "250 ml", price: 1700, label: "250 ml", image: "/assets/images/products/zaitoon-oil-250ml.jpg" },
       { id: "500ml", size: "500 ml", price: 3300, label: "500 ml", image: "/assets/images/products/zaitoon-oil-500ml.jpg" },
       { id: "750ml", size: "750 ml", price: 5100, label: "750 ml", image: "/assets/images/products/zaitoon-oil-750ml.jpg" },
       { id: "1000ml", size: "1000 ml (1 litre)", price: 6200, label: "1000 ml (1 litre)", image: "/assets/images/products/zaitoon-oil-1000ml.jpg" }
@@ -85,11 +87,12 @@ export const products: Product[] = [
     taglineUrdu: "پہاڑی چٹانوں سے روایتی طریقوں سے صاف کردہ اصل گولڈ سلاجیت",
     description: "Authentic, high-grade purified mountain Shilajit resin packed in a sealed black glass jar with its official protective box and an engraved stainless steel measuring spoon for accurate daily portions.",
     descriptionUrdu: "خالص پہاڑی چٹانوں سے حاصل کردہ اصل وزیرستانی گولڈ سلاجیت۔ ہوا بند محفوظ بلیک جار، ڈبے اور پیمائش کے مخصوص چمچ کے ساتھ۔",
-    image: "/assets/images/products/shilajit-top.jpg",
+    image: "/assets/images/products/shilajit-full-kit.jpg",
     galleryImages: [
-      "/assets/images/products/shilajit-top.jpg",
+      "/assets/images/products/shilajit-full-kit.jpg",
       "/assets/images/products/shilajit-box.jpg",
-      "/assets/images/products/shilajit-jar.jpg"
+      "/assets/images/products/shilajit-jar.jpg",
+      "/assets/images/products/combo-bundle-board.jpg"
     ],
     price: 2000,
     badge: "Net Wt: 10 G + Spoon",

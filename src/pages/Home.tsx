@@ -104,7 +104,7 @@ export const Home: React.FC = () => {
                 </div>
 
                 <img
-                  src="/assets/images/products/zaitoon-bottle-front.jpg"
+                  src="/assets/images/products/combo-bundle-board.jpg"
                   alt="Waziristani Zaitoon Oil and Shilajit"
                   className="w-full h-full object-cover rounded-2xl filter drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
                   width="450"
