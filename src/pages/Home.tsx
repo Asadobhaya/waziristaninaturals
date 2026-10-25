@@ -230,7 +230,7 @@ export const Home: React.FC = () => {
 
             {/* Right: Authentic Real Product Photography */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full max-w-sm sm:max-w-md aspect-square rounded-3xl bg-gradient-to-b from-forest-900 to-forest-950 p-4 sm:p-6 border border-gold-400/40 shadow-2xl flex items-center justify-center overflow-hidden">
+              <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5] sm:aspect-square rounded-3xl bg-gradient-to-b from-forest-900 to-forest-950 p-3 sm:p-4 border border-gold-400/40 shadow-2xl flex items-center justify-center overflow-hidden">
                 {/* Brand Seal */}
                 <div className="absolute top-3 right-3 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gold-400/80 shadow-2xl bg-forest-950 p-0.5">
                   <img
@@ -243,11 +243,11 @@ export const Home: React.FC = () => {
                 </div>
 
                 <img
-                  src="/assets/images/products/zaitoon-oil-all-sizes.jpg"
-                  alt="Waziristani Zaitoon Oil 4 Bottle Sizes lineup"
+                  src="/assets/images/products/hero-showcase.jpg"
+                  alt="Waziristani Zaitoon Oil and Mountain Shilajit"
                   className="w-full h-full object-cover rounded-2xl filter drop-shadow-xl"
                   width="450"
-                  height="450"
+                  height="550"
                   loading="eager"
                 />
 
