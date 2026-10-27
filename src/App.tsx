@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { LiveRecentOrderPopup } from './components/LiveRecentOrderPopup';
 
 import { Home } from './pages/Home';
 import { Products } from './pages/Products';
@@ -114,6 +115,7 @@ export const App: React.FC = () => {
               <Footer />
               <CartDrawer />
               <FloatingWhatsApp />
+              <LiveRecentOrderPopup />
             </div>
           </CartProvider>
         </ToastProvider>

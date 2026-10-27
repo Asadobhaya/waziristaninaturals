@@ -17,6 +17,7 @@ import { products } from '../config/products';
 import { ProductCard } from '../components/ProductCard';
 import { SuperBumperBanner } from '../components/SuperBumperBanner';
 import { WhatsAppButton } from '../components/WhatsAppButton';
+import { LiveOrderStatus } from '../components/LiveOrderStatus';
 import { buildGeneralInquiryWhatsAppMessage } from '../lib/whatsapp';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -100,14 +101,17 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left: Copy, Value Proposition, & CTAs */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left rtl:lg:text-right">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/90 border border-gold-400/40 text-gold-300 text-xs font-semibold backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-                <span>
-                  {language === 'ur'
-                    ? '100٪ خالص وزیرستانی سوغات • کیش آن ڈیلیوری'
-                    : '100% Sourced from Waziristan • Cash on Delivery'}
-                </span>
+              {/* Badges: Trust + Live Order Count */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/90 border border-gold-400/40 text-gold-300 text-xs font-semibold backdrop-blur-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+                  <span>
+                    {language === 'ur'
+                      ? '100٪ خالص وزیرستانی سوغات • کیش آن ڈیلیوری'
+                      : '100% Sourced from Waziristan • Cash on Delivery'}
+                  </span>
+                </div>
+                <LiveOrderStatus variant="hero-pill" />
               </div>
 
               {/* Main H1 Headline */}
@@ -219,6 +223,11 @@ export const Home: React.FC = () => {
               ? 'ہر بوتل اور جار کی شفاف قیمت اور براہِ راست واٹس ایپ آرڈر کی سہولت'
               : 'Transparent sizing, honest pricing, and instant 1-click WhatsApp order handoff.'}
           </p>
+        </div>
+
+        {/* Live Order & Dispatch Status Banner */}
+        <div className="max-w-5xl mx-auto">
+          <LiveOrderStatus variant="banner" />
         </div>
 
         {/* 2 Main Product Cards Grid */}
