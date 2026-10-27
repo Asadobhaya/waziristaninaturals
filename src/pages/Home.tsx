@@ -11,7 +11,8 @@ import {
   Sparkles, 
   RefreshCw, 
   HeartHandshake,
-  Check
+  Check,
+  Package
 } from 'lucide-react';
 import { products } from '../config/products';
 import { ProductCard } from '../components/ProductCard';
@@ -26,6 +27,12 @@ export const Home: React.FC = () => {
 
   const getHeroInquiryMessage = () => {
     return buildGeneralInquiryWhatsAppMessage('Direct Order Inquiry from Homepage Hero');
+  };
+
+  const getPackagingInquiryMessage = () => {
+    return language === 'ur'
+      ? 'السلام علیکم، مجھے زیتون کے تیل کی پلاسٹک / گلاس / میٹالک کین پیکنگ کے حوالے سے آرڈر کرنا ہے۔'
+      : 'Assalam o Alaikum, I want to inquire about Olive Oil packings (Plastic / Glass / Metallic Can).';
   };
 
   const handleScrollToProducts = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -83,6 +90,14 @@ export const Home: React.FC = () => {
       a: language === 'ur'
         ? 'جی بالکل! آپ کو پیشگی ادائیگی کرنے کی کوئی ضرورت نہیں۔ پارسل جب کوریئر کا نمائندہ آپ کی دہلیز پر پہنچائے گا، آپ اس وقت نقد رقم ادا کر سکتے ہیں۔'
         : 'Yes, 100%! You do not need to prepay online. You can inspect your sealed package and pay cash directly to the courier agent when it arrives at your doorstep.'
+    },
+    {
+      q: language === 'ur'
+        ? 'زیتون کے تیل کے لیے کون سی پیکنگز دستیاب ہیں؟'
+        : 'Which packaging options are available for Waziristani Olive Oil?',
+      a: language === 'ur'
+        ? 'ہماری تمام بوتلیں (250ml، 500ml، 750ml اور 1 لٹر) تین مختلف محفوظ پیکنگز میں دستیاب ہیں: فوڈ گریڈ پلاسٹک بوتل (ہلکی اور ترسیل کے لیے محفوظ)، ڈارک گلاس / شیشے کی بوتل (دھوپ سے محفوظ اور کچن و ٹیبل کے لیے موزوں)، اور میٹالک کین / ٹن پیکنگ (طویل مدتی تازگی اور 100 فیصد روشنی سے حفاظت کے لیے)۔ آپ آرڈر دیتے وقت اپنی پسندیدہ پیکنگ بتا سکتے ہیں۔'
+        : 'All our olive oil sizes (250ml, 500ml, 750ml, and 1000ml) are available in three secure packaging formats: food-grade shatterproof plastic bottles (safe and lightweight for transit), protective dark glass bottles (preserving extra-virgin freshness from light), and durable metallic cans/tins (100% light-blocking for long-term kitchen storage). You can request your preferred packaging format when placing your order on WhatsApp.'
     },
     {
       q: language === 'ur'
@@ -568,6 +583,119 @@ export const Home: React.FC = () => {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* 
+        PACKAGING SHOWCASE SECTION:
+        Full lineup showcase showing Plastic, Glass & Metallic Can packaging formats.
+      */}
+      <section id="packaging" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 scroll-mt-24">
+        <div className="bg-gradient-to-br from-[#07160F] via-forest-950 to-[#0A1D13] rounded-3xl p-6 sm:p-10 lg:p-12 border border-gold-400/40 shadow-2xl text-ivory-50 overflow-hidden relative">
+          {/* Subtle background ambient glows */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left: Headline, Info & 3 Packaging Formats */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest-900/90 border border-gold-400/40 text-gold-300 text-xs font-bold tracking-wider uppercase">
+                <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+                <span>{language === 'ur' ? 'ہر ضرورت کے مطابق پیکنگ' : 'Versatile Packaging Formats'}</span>
+              </div>
+
+              <div className="space-y-3">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-ivory-50 leading-tight">
+                  {language === 'ur'
+                    ? 'پلاسٹک، گلاس اور میٹالک کین کی محفوظ پیکنگ میں دستیاب'
+                    : 'Available in Plastic, Glass as Well as Metallic Can Packing'}
+                </h2>
+                <p className="text-xs sm:text-sm text-ivory-100/80 leading-relaxed">
+                  {language === 'ur'
+                    ? 'ہم زیتون کا خالص تیل آپ کی سہولت اور استعمال کے مطابق تینوں قسم کی محفوظ پیکنگز میں فراہم کرتے ہیں: روزمرہ اور ترسیل کے لیے پلاسٹک، کچن و دسترخوان کے لیے گلاس اور طویل مدتی تازگی کے لیے میٹالک کین (ٹن)۔ تمام 4 سائزز (250ml، 500ml، 750ml، 1000ml) میں دستیاب ہے۔'
+                    : 'Whether you need convenient shatterproof bottles for easy transit, classic dark glass for table presentation, or airtight metallic cans for long-term freshness and bulk storage — we supply all four olive oil sizes (250ml, 500ml, 750ml, and 1000ml) in your preferred packaging.'}
+                </p>
+              </div>
+
+              {/* 3 Packaging Feature Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div className="p-4 rounded-2xl bg-forest-900/70 border border-emerald-800/60 space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-gold-400 font-bold text-xs sm:text-sm">
+                    <Package className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>{language === 'ur' ? 'فوڈ گریڈ پلاسٹک' : 'Food-Grade Plastic'}</span>
+                  </div>
+                  <p className="text-[11px] text-ivory-100/70 leading-relaxed">
+                    {language === 'ur'
+                      ? 'ہلکی، مضبوط، اور ٹوٹنے سے محفوظ پیکنگ جو کوریئر ترسیل کے لیے بہترین ہے۔'
+                      : 'Lightweight & shatterproof. Ideal for everyday use and transit safety.'}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-forest-900/70 border border-emerald-800/60 space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-gold-400 font-bold text-xs sm:text-sm">
+                    <ShieldCheck className="w-4 h-4 text-gold-400 shrink-0" />
+                    <span>{language === 'ur' ? 'ڈارک گلاس (شیشہ)' : 'Protective Glass'}</span>
+                  </div>
+                  <p className="text-[11px] text-ivory-100/70 leading-relaxed">
+                    {language === 'ur'
+                      ? 'دھوپ اور روشنی سے محفوظ گلاس بوتل جو کچن اور ڈائننگ ٹیبل کی شان بڑھاتی ہے۔'
+                      : 'UV-protective dark glass preserving extra-virgin aroma & flavor.'}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-forest-900/70 border border-emerald-800/60 space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-gold-400 font-bold text-xs sm:text-sm">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>{language === 'ur' ? 'میٹالک کین (ٹن)' : 'Metallic Can (Tin)'}</span>
+                  </div>
+                  <p className="text-[11px] text-ivory-100/70 leading-relaxed">
+                    {language === 'ur'
+                      ? 'سو فیصد روشنی سے بند اور ایئر ٹائٹ کین جو تیل کو مہینوں تک تازہ رکھتا ہے۔'
+                      : '100% light-blocking barrier for maximum shelf-life and bulk freshness.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <WhatsAppButton
+                  getMessage={getPackagingInquiryMessage}
+                  label={language === 'ur' ? 'پیکنگ سے متعلق واٹس ایپ پر بات کریں' : 'Inquire on WhatsApp'}
+                  variant="primary"
+                  className="w-full sm:w-auto"
+                  eventPayload={{ source: 'packaging_showcase_cta' }}
+                />
+                <a
+                  href="#products"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl border border-gold-400/50 hover:bg-gold-500/10 text-ivory-100 text-xs font-bold transition-all text-center"
+                >
+                  <span>{language === 'ur' ? 'تمام سائزز اور قیمتیں دیکھیں' : 'View Sizes & Prices'}</span>
+                  <ArrowRight className="w-4 h-4 text-gold-400 rtl:rotate-180" />
+                </a>
+              </div>
+            </div>
+
+            {/* Right: Authentic Photograph Showcase */}
+            <div className="lg:col-span-6 relative flex items-center justify-center">
+              <div className="relative w-full aspect-[4/5] sm:aspect-square max-w-md rounded-2xl overflow-hidden border border-gold-400/40 shadow-2xl bg-forest-950 p-2 sm:p-3">
+                <img
+                  src="/assets/images/products/zaitoon-oil-all-packings.jpg"
+                  alt="All Packings of Waziristani Zaitoon Oil: Plastic, Glass, and Metallic Can with fresh oil and olive twigs"
+                  className="w-full h-full object-cover object-center rounded-xl"
+                  width="747"
+                  height="1024"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-4 inset-x-4 bg-forest-950/95 backdrop-blur-md rounded-xl p-2.5 border border-forest-800 text-center">
+                  <span className="text-[11px] font-bold text-gold-300 block">
+                    {language === 'ur' ? 'تمام پیکنگز: پلاسٹک، گلاس اور میٹالک کین' : 'All Packings: Plastic, Glass & Metallic Can'}
+                  </span>
+                  <span className="text-[10px] text-ivory-100/75">
+                    {language === 'ur' ? '250ml، 500ml، 750ml اور 1000ml میں دستیاب' : 'Available in 250ml, 500ml, 750ml, and 1000ml'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

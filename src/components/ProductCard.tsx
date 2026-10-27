@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Check, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, Check, Sparkles, CheckCircle2, Package } from 'lucide-react';
 import { Product, ProductVariant } from '../config/products';
 import { VariantSelector } from './VariantSelector';
 import { QuantitySelector } from './QuantitySelector';
@@ -128,6 +128,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
               selectedVariant={selectedVariant}
               onSelectVariant={handleVariantChange}
             />
+          </div>
+        )}
+
+        {/* Packaging Callout for Zaitoon Oil */}
+        {product.id === 'zaitoon-oil' && (
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-forest-50 border border-emerald-200/80 text-[11px] text-forest-950 shadow-sm">
+            <Package className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+            <span className="font-medium">
+              {language === 'ur'
+                ? 'پلاسٹک، گلاس اور میٹالک کین (ٹن) پیکنگ میں دستیاب'
+                : 'Available in Plastic, Glass, as well as Metallic Can Packing'}
+            </span>
           </div>
         )}
 

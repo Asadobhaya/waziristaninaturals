@@ -41,15 +41,15 @@ export const products: Product[] = [
     categoryUrdu: "زیتون کا خالص تیل",
     tagline: "The Pearl Of The MW — Pure Olive Oil from Waziristan",
     taglineUrdu: "زیتون کے دانوں سے نکالا ہوا خالص و مستند تیل",
-    description: "Pure, natural olive oil extracted directly from quality olives and sealed in protective amber packaging with a precision flip-top cap. Preserves natural aroma, rich viscosity, and golden-green purity across four convenient sizes.",
-    descriptionUrdu: "تازہ زیتون کے دانوں سے روایتی مہارت کے ساتھ حاصل کردہ خالص زیتون کا تیل۔ فلپ ٹاپ محفوظ پیکنگ میں چار مختلف سائزز میں دستیاب۔",
-    image: "/assets/images/products/zaitoon-oil-all-sizes.jpg",
+    description: "Pure, natural extra virgin olive oil extracted directly from quality olives and sealed in protective food-grade packaging. Available in plastic, glass as well as metallic can packing across four convenient sizes: 250ml, 500ml, 750ml, and 1000ml (1 Litre).",
+    descriptionUrdu: "تازہ زیتون کے دانوں سے روایتی مہارت کے ساتھ حاصل کردہ خالص زیتون کا تیل۔ پلاسٹک، گلاس اور میٹالک کین کی محفوظ پیکنگ میں چار سائزز (250ml، 500ml، 750ml، اور 1 لٹر) میں دستیاب۔",
+    image: "/assets/images/products/zaitoon-oil-250ml.jpg",
     galleryImages: [
-      "/assets/images/products/zaitoon-oil-all-sizes.jpg",
       "/assets/images/products/zaitoon-oil-250ml.jpg",
       "/assets/images/products/zaitoon-oil-500ml.jpg",
       "/assets/images/products/zaitoon-oil-750ml.jpg",
-      "/assets/images/products/zaitoon-oil-1000ml.jpg"
+      "/assets/images/products/zaitoon-oil-1000ml.jpg",
+      "/assets/images/products/zaitoon-oil-all-packings.jpg"
     ],
     variants: [
       { id: "250ml", size: "250 ml", price: 1700, label: "250 ml", image: "/assets/images/products/zaitoon-oil-250ml.jpg" },
@@ -60,6 +60,7 @@ export const products: Product[] = [
     badge: "Halal Control Verified",
     badgeUrdu: "حلال تصدیق شدہ",
     details: [
+      { label: "Available Packings", labelUrdu: "دستیاب پیکنگز", value: "Available in Food-Grade Plastic, Protective Dark Glass, and Metallic Can (Tin) Packing", valueUrdu: "پلاسٹک بوتل، شیشے (گلاس) کی محفوظ بوتل اور میٹالک کین (ٹن) کی پیکنگ میں دستیاب" },
       { label: "Registration", labelUrdu: "رجسٹریشن", value: "TM: 714998 | Reg No: 21705S9014653", valueUrdu: "ٹریڈ مارک: 714998 | رجسٹریشن نمبر: 21705S9014653" },
       { label: "Dispenser Cap", labelUrdu: "ڈسپنسر کیپ", value: "Airtight, leak-resistant flip-top cap", valueUrdu: "محفوظ فلپ ٹاپ ایئر ٹائٹ کیپ" },
       { label: "Available Sizes", labelUrdu: "دستیاب سائزز", value: "250 ml, 500 ml, 750 ml, 1000 ml (1 litre)", valueUrdu: "250 ملی لٹر، 500 ملی لٹر، 750 ملی لٹر، 1 لٹر" },
