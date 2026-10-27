@@ -15,8 +15,9 @@ export const Header: React.FC = () => {
   const navItems = [
     { id: 'products', label: language === 'ur' ? 'مصنوعات' : 'Products' },
     { id: 'why-us', label: language === 'ur' ? 'ہمیں کیوں چنیں' : 'Why Us' },
+    { id: 'packaging', label: language === 'ur' ? 'پیکنگز' : 'Packings' },
     { id: 'reviews', label: language === 'ur' ? 'گاہکوں کی رائے' : 'Reviews' },
-    { id: 'faq', label: language === 'ur' ? 'عمومی سوالات' : 'FAQ' },
+    { id: 'how-to-order', label: language === 'ur' ? 'طریقہ آرڈر' : 'How to Order' },
     { id: 'contact', label: language === 'ur' ? 'رابطہ' : 'Contact' },
   ];
 

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowRight, 
   ShieldCheck, 
   Truck, 
   MessageSquare, 
   CheckCircle, 
-  ChevronDown, 
   Star, 
   MapPin, 
   Sparkles, 
@@ -23,7 +22,6 @@ import { useLanguage } from '../context/LanguageContext';
 
 export const Home: React.FC = () => {
   const { language } = useLanguage();
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const getHeroInquiryMessage = () => {
     return buildGeneralInquiryWhatsAppMessage('Direct Order Inquiry from Homepage Hero');
@@ -48,82 +46,6 @@ export const Home: React.FC = () => {
       });
     }
   };
-
-  // 8 Conversion & Purity FAQs
-  const faqs = [
-    {
-      q: language === 'ur'
-        ? 'وزیرستانی زیتون کے تیل کے خالص ہونے کی کیا ضمانت ہے؟'
-        : 'How do I know Waziristani Zaitoon Oil is 100% pure and unadulterated?',
-      a: language === 'ur'
-        ? 'ہمارا زیتون کا تیل خطہ وزیرستان کے باغات سے حاصل شدہ تازہ زیتون سے پہلے مکینیکل کولڈ پریس کے ذریعے نکالا جاتا ہے۔ اس میں کوئی کیمیکل، حرارت، پام آئل یا مصنوعی رنگ شامل نہیں کیا جاتا۔ اس کا قدرتی کڑواہٹ دار ذائقہ اور گہرا سنہری مائل سبز رنگ اس کے اصل ہونے کا واضح ثبوت ہے۔'
-        : 'Our olive oil is 100% first mechanically cold-extracted from fresh Waziristan olives without heat, chemical solvents, or seed-oil blending. Its signature peppery back-of-throat finish, viscosity, and natural golden-green hue prove its unrefined extra-virgin purity.'
-    },
-    {
-      q: language === 'ur'
-        ? 'وزیرستانی گولڈ سلاجیت کیسے تیار اور صاف کی جاتی ہے؟'
-        : 'How is Waziristani Gold Shilajit collected and purified?',
-      a: language === 'ur'
-        ? 'سلاجیت وزیرستان کے بلند پہاڑی سلسلوں کی چٹانوں سے روایتی طریقے سے اتاری جاتی ہے۔ اسے قدرتی چشمے کے صاف پانی میں حل کر کے کپڑے کے فلٹرز سے مٹی اور پتھر کے ذرات سے مکمل پاک کیا جاتا ہے، اور صاف شیشے کے نیچے قدرتی دھوپ میں خشک کر کے گاڑھی رال تیار کی جاتی ہے۔'
-        : 'Raw mineral resin is gathered from high-altitude rock crevices in Waziristan, dissolved in pure natural mountain spring water to separate sediment, filtered multiple times, and gently sun-dried under clean glass shields to preserve bioactive fulvic minerals.'
-    },
-    {
-      q: language === 'ur'
-        ? 'سلاجیت کے استعمال کا طریقہ اور روزانہ کی مقدار کیا ہے؟'
-        : 'How should I consume Shilajit and what is the recommended dosage?',
-      a: language === 'ur'
-        ? 'ساتھ دیے گئے سٹینلیس سٹیل کے پیمائشی چمچ کی مدد سے گندم یا چاول کے دانے کے برابر مقدار (150 سے 250 ملی گرام) لیں۔ اسے نیم گرم پانی، دودھ یا سبز چائے میں مکمل حل کر کے صبح کے وقت استعمال کریں۔ نوٹ: اگر آپ کسی مرض کے لیے زیرِ علاج ہیں تو استعمال سے قبل اپنے معالج سے مشورہ ضرور کریں۔'
-        : 'Use the included stainless steel spoon to measure a rice-grain sized portion (approx. 150–250 mg). Dissolve thoroughly in warm water, warm milk, or green tea once daily in the morning. Important: Always consult a qualified physician if you have chronic medical conditions or take prescription medications.'
-    },
-    {
-      q: language === 'ur'
-        ? 'ملک گیر ڈیلیوری میں کتنا وقت لگتا ہے اور کوریئر چارجز کیا ہیں؟'
-        : 'How long does nationwide delivery take and what are the shipping fees?',
-      a: language === 'ur'
-        ? 'ہم پورے پاکستان کے تمام شہروں، قصبوں اور دیہاتوں میں تصدیق شدہ کوریئر پارٹنرز کے ذریعے ترسیل کرتے ہیں۔ عام طور پر پارسل 3 سے 5 کام کے دنوں میں پہنچ جاتا ہے۔ ہماری موجودہ پالیسی کے تحت تمام آرڈرز پر ہوم ڈیلیوری بالکل مفت ہے۔'
-        : 'We dispatch daily to all major cities and towns across Pakistan via established courier services. Delivery takes 3 to 5 business days. Under our current standard promotion, doorstep delivery is 100% free across Pakistan.'
-    },
-    {
-      q: language === 'ur'
-        ? 'کیا کیش آن ڈیلیوری (COD) کی سہولت موجود ہے؟'
-        : 'Is Cash on Delivery (COD) available across Pakistan?',
-      a: language === 'ur'
-        ? 'جی بالکل! آپ کو پیشگی ادائیگی کرنے کی کوئی ضرورت نہیں۔ پارسل جب کوریئر کا نمائندہ آپ کی دہلیز پر پہنچائے گا، آپ اس وقت نقد رقم ادا کر سکتے ہیں۔'
-        : 'Yes, 100%! You do not need to prepay online. You can inspect your sealed package and pay cash directly to the courier agent when it arrives at your doorstep.'
-    },
-    {
-      q: language === 'ur'
-        ? 'زیتون کے تیل کے لیے کون سی پیکنگز دستیاب ہیں؟'
-        : 'Which packaging options are available for Waziristani Olive Oil?',
-      a: language === 'ur'
-        ? 'ہماری تمام بوتلیں (250ml، 500ml، 750ml اور 1 لٹر) تین مختلف محفوظ پیکنگز میں دستیاب ہیں: فوڈ گریڈ پلاسٹک بوتل (ہلکی اور ترسیل کے لیے محفوظ)، ڈارک گلاس / شیشے کی بوتل (دھوپ سے محفوظ اور کچن و ٹیبل کے لیے موزوں)، اور میٹالک کین / ٹن پیکنگ (طویل مدتی تازگی اور 100 فیصد روشنی سے حفاظت کے لیے)۔ آپ آرڈر دیتے وقت اپنی پسندیدہ پیکنگ بتا سکتے ہیں۔'
-        : 'All our olive oil sizes (250ml, 500ml, 750ml, and 1000ml) are available in three secure packaging formats: food-grade shatterproof plastic bottles (safe and lightweight for transit), protective dark glass bottles (preserving extra-virgin freshness from light), and durable metallic cans/tins (100% light-blocking for long-term kitchen storage). You can request your preferred packaging format when placing your order on WhatsApp.'
-    },
-    {
-      q: language === 'ur'
-        ? 'اگر ترسیل کے دوران بوتل ٹوٹ جائے یا لیکیج ہو تو کیا ہوگا؟'
-        : 'What is your replacement policy if a bottle breaks or leaks in transit?',
-      a: language === 'ur'
-        ? 'ہماری ہر بوتل محفوظ ببل ریپ اور مضبوط باکس میں بھیجی جاتی ہے۔ اگر بدقسمتی سے راستے میں کوئی نقصان ہو جائے تو 7 دنوں کے اندر واٹس ایپ پر تصویر شیئر کریں۔ ہم بغیر کسی اضافی فیس کے فوری نیا پارسل روانہ کر دیں گے۔'
-        : 'All glass bottles and jars are packed in multi-layer shockproof bubble packaging. In the rare event of transit breakage or leakage, send us a photo on WhatsApp within 7 days, and we will dispatch a free replacement immediately.'
-    },
-    {
-      q: language === 'ur'
-        ? 'زیتون کے تیل اور سلاجیت کو کیسے محفوظ رکھا جائے؟'
-        : 'How should I store the Olive Oil and Shilajit for maximum shelf life?',
-      a: language === 'ur'
-        ? 'زیتون کے تیل کو کمرے کے درجہ حرارت پر اور براہِ راست دھوپ سے دور رکھیں۔ سلاجیت کے جار کو استعمال کے فوری بعد مضبوطی سے بند رکھیں تاکہ ہوا میں موجود نمی سے محفوظ رہے اور رال خشک نہ ہو۔'
-        : 'Store olive oil at room temperature away from direct sunlight and stovetop heat. For Shilajit, always twist the jar lid tightly shut immediately after use to prevent ambient moisture or hardening.'
-    },
-    {
-      q: language === 'ur'
-        ? 'کیا میں واٹس ایپ کے علاوہ فون پر بھی آرڈر دے سکتا ہوں؟'
-        : 'Can I place my order directly by phone call?',
-      a: language === 'ur'
-        ? 'جی ہاں! آپ ہمارے تصدیق شدہ کسٹمر نمائندوں نبیل عالم خان (03348007049) یا اسد (03004634494) کو براہ راست کال کر کے بھی اپنا پتہ اور آرڈر نوٹ کروا سکتے ہیں۔'
-        : 'Yes! You can call our official representatives directly: Nabeel Aalam Khan (+92 334 8007049) or Asad (+92 300 4634494) to confirm your order over the phone.'
-    }
-  ];
 
   // 4 Genuine Pakistani Customer Testimonials
   const reviews = [
@@ -415,178 +337,6 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 
-        E: REAL CUSTOMER REVIEWS
-      */}
-      <section id="reviews" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 scroll-mt-24">
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
-            {language === 'ur' ? 'گاہکوں کا اطمینان' : 'Real Customer Experiences'}
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-forest-950">
-            {language === 'ur' ? 'ہمارے معزز خریداروں کی رائے' : 'Verified Reviews Across Pakistan'}
-          </h2>
-          <p className="text-xs sm:text-sm text-charcoal-600">
-            {language === 'ur'
-              ? 'پشاور، لاہور، اسلام آباد اور کراچی سے ہمارے باقاعدہ گاہکوں کے اصل تاثرات'
-              : 'Direct feedback from real customers who ordered and received their packages.'}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reviews.map((rev, i) => (
-            <div
-              key={i}
-              className="p-5 rounded-3xl bg-white border border-charcoal-200/80 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
-            >
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-1 text-gold-500">
-                  {[...Array(5)].map((_, starIdx) => (
-                    <Star key={starIdx} className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
-                  ))}
-                </div>
-                <p className="text-xs text-charcoal-700 leading-relaxed italic">
-                  "{rev.text}"
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-charcoal-100">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="font-bold text-xs text-forest-950 block">
-                      {rev.name}
-                    </span>
-                    <span className="text-[10px] text-charcoal-500 flex items-center gap-1">
-                      <MapPin className="w-2.5 h-2.5 text-emerald-600" />
-                      {rev.city}
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-700 border border-emerald-200">
-                    <Check className="w-2.5 h-2.5" />
-                    Verified
-                  </span>
-                </div>
-                <div className="text-[10px] text-olive-700 font-medium mt-1">
-                  {rev.product}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 
-        F: HOW TO ORDER (3 Steps)
-      */}
-      <section id="how-to-order" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 scroll-mt-24">
-        <div className="p-8 sm:p-12 rounded-3xl bg-ivory-100 border border-charcoal-200/80">
-          <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
-              {language === 'ur' ? 'آسان خریداری' : 'Simple 3-Step Process'}
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-black text-forest-950">
-              {language === 'ur' ? 'آرڈر کیسے کریں؟' : 'How to Place Your Order'}
-            </h2>
-            <p className="text-xs text-charcoal-600">
-              {language === 'ur'
-                ? 'کوئی طویل فارم نہیں — سیدھا واٹس ایپ پر پیغام بھیجیں اور گھر بیٹھے پارسل پائیں'
-                : 'No complex registration required. Connect directly via WhatsApp.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
-              <span className="text-3xl font-serif font-black text-gold-500">01</span>
-              <h3 className="font-bold text-base text-forest-950">
-                {language === 'ur' ? 'پروڈکٹ اور سائز چنیں' : '1. Choose Product & Size'}
-              </h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                {language === 'ur'
-                  ? 'زیتون کے تیل کے 4 سائزز (250ml سے 1 لٹر) یا 10 گرام خالص سلاجیت منتخب کریں۔'
-                  : 'Select your preferred olive oil bottle size (250ml to 1L) or 10g Shilajit jar.'}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
-              <span className="text-3xl font-serif font-black text-gold-500">02</span>
-              <h3 className="font-bold text-base text-forest-950">
-                {language === 'ur' ? 'واٹس ایپ میسج بھیجیں' : '2. Send WhatsApp Message'}
-              </h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                {language === 'ur'
-                  ? 'آرڈر کے بٹن پر کلک کریں، پہلے سے تیار شدہ میسج ہمارے نمائندے کو واٹس ایپ پر ارسال ہو جائے گا۔'
-                  : 'Click "Order on WhatsApp" to open a prefilled message directly with our care representative.'}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
-              <span className="text-3xl font-serif font-black text-gold-500">03</span>
-              <h3 className="font-bold text-base text-forest-950">
-                {language === 'ur' ? 'دہلیز پر کیش ادا کریں' : '3. Doorstep Delivery & COD'}
-              </h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                {language === 'ur'
-                  ? 'کوریئر 3 سے 5 دنوں میں پارسل پہنچائے گا۔ تسلی کر کے نقد رقم ادا کریں۔'
-                  : 'Courier delivers to your doorstep in 3-5 days. Inspect your package and pay cash on delivery.'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 
-        G: FAQ ACCORDION SECTION
-      */}
-      <section id="faq" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 scroll-mt-24">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
-            {language === 'ur' ? 'شفاف معلومات' : 'Clear Answers'}
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-forest-950">
-            {language === 'ur' ? 'اکثر پوچھے جانے والے سوالات' : 'Frequently Asked Questions'}
-          </h2>
-          <p className="text-xs sm:text-sm text-charcoal-600">
-            {language === 'ur'
-              ? 'خالص پن، ترسیل اور استعمال سے متعلق مکمل و شفاف رہنمائی'
-              : 'Everything you need to know about our sourcing, usage, and policies.'}
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          {faqs.map((faq, index) => {
-            const isOpen = openFaqIndex === index;
-            return (
-              <div
-                key={index}
-                className="rounded-2xl border border-charcoal-200 bg-white overflow-hidden shadow-sm transition-all"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full p-4 sm:p-5 text-left rtl:text-right flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
-                  aria-expanded={isOpen}
-                >
-                  <span className="font-serif font-bold text-sm sm:text-base text-forest-950">
-                    {faq.q}
-                  </span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-gold-500 shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 text-forest-900' : ''
-                    }`}
-                  />
-                </button>
-
-                {isOpen && (
-                  <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-xs sm:text-sm text-charcoal-700 leading-relaxed border-t border-charcoal-100 pt-3">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 
         PACKAGING SHOWCASE SECTION:
         Full lineup showcase showing Plastic, Glass & Metallic Can packaging formats.
       */}
@@ -694,6 +444,125 @@ export const Home: React.FC = () => {
                   </span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 
+        E: REAL CUSTOMER REVIEWS (Placed below Packaging section)
+      */}
+      <section id="reviews" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 scroll-mt-24">
+        <div className="text-center max-w-xl mx-auto space-y-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
+            {language === 'ur' ? 'گاہکوں کا اطمینان' : 'Real Customer Experiences'}
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-serif font-black text-forest-950">
+            {language === 'ur' ? 'ہمارے معزز خریداروں کی رائے' : 'Verified Reviews Across Pakistan'}
+          </h2>
+          <p className="text-xs sm:text-sm text-charcoal-600">
+            {language === 'ur'
+              ? 'پشاور، لاہور، اسلام آباد اور کراچی سے ہمارے باقاعدہ گاہکوں کے اصل تاثرات'
+              : 'Direct feedback from real customers who ordered and received their packages.'}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {reviews.map((rev, i) => (
+            <div
+              key={i}
+              className="p-5 rounded-3xl bg-white border border-charcoal-200/80 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+            >
+              <div className="space-y-2.5">
+                <div className="flex items-center gap-1 text-gold-500">
+                  {[...Array(5)].map((_, starIdx) => (
+                    <Star key={starIdx} className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
+                  ))}
+                </div>
+                <p className="text-xs text-charcoal-700 leading-relaxed italic">
+                  "{rev.text}"
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-charcoal-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-xs text-forest-950 block">
+                      {rev.name}
+                    </span>
+                    <span className="text-[10px] text-charcoal-500 flex items-center gap-1">
+                      <MapPin className="w-2.5 h-2.5 text-emerald-600" />
+                      {rev.city}
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                    <Check className="w-2.5 h-2.5" />
+                    Verified
+                  </span>
+                </div>
+                <div className="text-[10px] text-olive-700 font-medium mt-1">
+                  {rev.product}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 
+        F: HOW TO ORDER (Placed below Packaging & Reviews)
+      */}
+      <section id="how-to-order" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 scroll-mt-24">
+        <div className="p-8 sm:p-12 rounded-3xl bg-ivory-100 border border-charcoal-200/80">
+          <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
+              {language === 'ur' ? 'آسان خریداری' : 'Simple 3-Step Process'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-black text-forest-950">
+              {language === 'ur' ? 'آرڈر کیسے کریں؟' : 'How to Place Your Order'}
+            </h2>
+            <p className="text-xs text-charcoal-600">
+              {language === 'ur'
+                ? 'کوئی طویل فارم نہیں — سیدھا واٹس ایپ پر پیغام بھیجیں اور گھر بیٹھے پارسل پائیں'
+                : 'No complex registration required. Connect directly via WhatsApp.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
+              <span className="text-3xl font-serif font-black text-gold-500">01</span>
+              <h3 className="font-bold text-base text-forest-950">
+                {language === 'ur' ? 'پروڈکٹ اور سائز چنیں' : '1. Choose Product & Size'}
+              </h3>
+              <p className="text-xs text-charcoal-600 leading-relaxed">
+                {language === 'ur'
+                  ? 'زیتون کے تیل کے 4 سائزز (250ml سے 1 لٹر) یا 10 گرام خالص سلاجیت منتخب کریں۔'
+                  : 'Select your preferred olive oil bottle size (250ml to 1L) or 10g Shilajit jar.'}
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
+              <span className="text-3xl font-serif font-black text-gold-500">02</span>
+              <h3 className="font-bold text-base text-forest-950">
+                {language === 'ur' ? 'واٹس ایپ میسج بھیجیں' : '2. Send WhatsApp Message'}
+              </h3>
+              <p className="text-xs text-charcoal-600 leading-relaxed">
+                {language === 'ur'
+                  ? 'آرڈر کے بٹن پر کلک کریں، پہلے سے تیار شدہ میسج ہمارے نمائندے کو واٹس ایپ پر ارسال ہو جائے گا۔'
+                  : 'Click "Order on WhatsApp" to open a prefilled message directly with our care representative.'}
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-charcoal-200/60 shadow-sm space-y-3">
+              <span className="text-3xl font-serif font-black text-gold-500">03</span>
+              <h3 className="font-bold text-base text-forest-950">
+                {language === 'ur' ? 'دہلیز پر کیش ادا کریں' : '3. Doorstep Delivery & COD'}
+              </h3>
+              <p className="text-xs text-charcoal-600 leading-relaxed">
+                {language === 'ur'
+                  ? 'کوریئر 3 سے 5 دنوں میں پارسل پہنچائے گا۔ تسلی کر کے نقد رقم ادا کریں۔'
+                  : 'Courier delivers to your doorstep in 3-5 days. Inspect your package and pay cash on delivery.'}
+              </p>
             </div>
           </div>
         </div>

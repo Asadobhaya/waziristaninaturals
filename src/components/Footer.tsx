@@ -93,11 +93,11 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="#faq"
-                    onClick={(e) => handleScrollToSection(e, 'faq')}
+                    href="#packaging"
+                    onClick={(e) => handleScrollToSection(e, 'packaging')}
                     className="text-ivory-100/80 hover:text-gold-300 transition-colors"
                   >
-                    {language === 'ur' ? 'عمومی سوالات و جوابات' : 'Frequently Asked Questions (FAQ)'}
+                    {language === 'ur' ? 'دستیاب پیکنگز' : 'Packaging Options'}
                   </a>
                 </li>
                 <li>
