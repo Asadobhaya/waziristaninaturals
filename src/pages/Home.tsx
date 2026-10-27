@@ -230,9 +230,9 @@ export const Home: React.FC = () => {
 
             {/* Right: Authentic Real Product Photography */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5] sm:aspect-square rounded-3xl bg-gradient-to-b from-forest-900 to-forest-950 p-3 sm:p-4 border border-gold-400/40 shadow-2xl flex items-center justify-center overflow-hidden">
+              <div className="relative w-full max-w-lg lg:max-w-xl aspect-[16/10] sm:aspect-[16/9] rounded-3xl bg-gradient-to-b from-forest-900 to-forest-950 p-2 sm:p-3 border border-gold-400/40 shadow-2xl flex items-center justify-center overflow-hidden">
                 {/* Brand Seal */}
-                <div className="absolute top-3 right-3 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gold-400/80 shadow-2xl bg-forest-950 p-0.5">
+                <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gold-400/80 shadow-2xl bg-forest-950 p-0.5">
                   <img
                     src="/assets/images/waziristani-logo.png"
                     alt="Waziristani Naturals Emblem"
@@ -245,17 +245,17 @@ export const Home: React.FC = () => {
                 <img
                   src="/assets/images/products/hero-showcase.jpg"
                   alt="Waziristani Zaitoon Oil and Mountain Shilajit"
-                  className="w-full h-full object-cover rounded-2xl filter drop-shadow-xl"
-                  width="450"
-                  height="550"
+                  className="w-full h-full object-cover object-center rounded-2xl filter drop-shadow-xl"
+                  width="1024"
+                  height="571"
                   loading="eager"
                 />
 
-                <div className="absolute bottom-3 inset-x-3 bg-forest-950/95 backdrop-blur-md rounded-xl p-2.5 border border-forest-800 text-center">
-                  <span className="text-[11px] font-bold text-gold-300 block">
+                <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 bg-forest-950/95 backdrop-blur-md rounded-xl p-2 sm:p-2.5 border border-forest-800 text-center">
+                  <span className="text-[11px] sm:text-xs font-bold text-gold-300 block">
                     {language === 'ur' ? 'اصلی و مستند سوغاتِ وزیرستان' : 'Authentic Waziristani Essentials'}
                   </span>
-                  <span className="text-[10px] text-ivory-100/75">
+                  <span className="text-[10px] sm:text-[11px] text-ivory-100/75">
                     {language === 'ur' ? 'خالص زیتون کا تیل اور بلند پہاڑی سلاجیت' : 'Pure Olive Oil & High-Mountain Resin'}
                   </span>
                 </div>
