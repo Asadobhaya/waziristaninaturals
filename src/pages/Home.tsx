@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -11,18 +11,44 @@ import {
   RefreshCw, 
   HeartHandshake,
   Check,
-  Package
+  Package,
+  PenLine
 } from 'lucide-react';
 import { products } from '../config/products';
 import { ProductCard } from '../components/ProductCard';
 import { SuperBumperBanner } from '../components/SuperBumperBanner';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { LiveOrderStatus } from '../components/LiveOrderStatus';
+import { ReviewSubmissionModal, SubmittedReview } from '../components/ReviewSubmissionModal';
 import { buildGeneralInquiryWhatsAppMessage } from '../lib/whatsapp';
 import { useLanguage } from '../context/LanguageContext';
 
 export const Home: React.FC = () => {
   const { language } = useLanguage();
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [userReviews, setUserReviews] = useState<SubmittedReview[]>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('waziristani_user_reviews');
+        return stored ? JSON.parse(stored) : [];
+      }
+      return [];
+    } catch {
+      return [];
+    }
+  });
+
+  const handleAddReview = (newReview: SubmittedReview) => {
+    const updated = [newReview, ...userReviews];
+    setUserReviews(updated);
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('waziristani_user_reviews', JSON.stringify(updated));
+      }
+    } catch {
+      // Local storage gracefully handled
+    }
+  };
 
   const getHeroInquiryMessage = () => {
     return buildGeneralInquiryWhatsAppMessage('Direct Order Inquiry from Homepage Hero');
@@ -49,14 +75,17 @@ export const Home: React.FC = () => {
   };
 
   // 4 Genuine Pakistani Customer Testimonials
-  const reviews = [
+  const defaultReviews = [
     {
       name: language === 'ur' ? 'طارق خان' : 'Tariq Khan',
       city: language === 'ur' ? 'پشاور' : 'Peshawar',
       text: language === 'ur'
         ? 'میں نے 1 لٹر والی بوتل خریدی۔ تیل کی قدرتی خوشبو، گہرا رنگ اور حلق میں ہلکی سی روایتی تیزی بتاتی ہے کہ یہ سچ مچ وزیرستان کا خالص کولڈ پریس زیتون کا تیل ہے۔'
         : 'I ordered the 1-litre Zaitoon oil bottle. The peppery kick, rich viscosity, and fresh aroma prove it is genuine first-press oil. Authentic Pakistani product.',
-      product: language === 'ur' ? 'زیتون کا تیل 1000ml' : 'Zaitoon Oil 1000ml'
+      product: language === 'ur' ? 'زیتون کا تیل 1000ml' : 'Zaitoon Oil 1000ml',
+      rating: 5,
+      isUserSubmitted: false,
+      date: ''
     },
     {
       name: language === 'ur' ? 'ڈاکٹر بلال احمد' : 'Dr. Bilal Ahmed',
@@ -64,7 +93,10 @@ export const Home: React.FC = () => {
       text: language === 'ur'
         ? 'سلاجیت کی کوالٹی بہترین ہے، کوئی چینی یا کیمیکل نہیں ملایا گیا۔ پیمائشی چمچ ساتھ ہونے کی وجہ سے صحیح خوراک لینا بہت آسان ہو گیا ہے۔ 3 دن میں لاہور ڈیلیوری ملی۔'
         : 'Clean, unadulterated Shilajit with genuine resin texture and no sugar cuts. The engraved measuring spoon makes exact dosing very easy. Delivered to Lahore in 3 days.',
-      product: language === 'ur' ? 'وزیرستانی گولڈ سلاجیت (10g)' : 'Waziristani Gold Shilajit (10g)'
+      product: language === 'ur' ? 'وزیرستانی گولڈ سلاجیت (10g)' : 'Waziristani Gold Shilajit (10g)',
+      rating: 5,
+      isUserSubmitted: false,
+      date: ''
     },
     {
       name: language === 'ur' ? 'مسز فاروق' : 'Mrs. Farooq',
@@ -72,7 +104,10 @@ export const Home: React.FC = () => {
       text: language === 'ur'
         ? 'پیکنگ بہت محفوظ تھی اور فلپ ٹاپ کیپ سے تیل استعمال کرنا انتہائی آسان ہے۔ سلاد اور روزمرہ خوراک کے لیے لاجواب چیز ہے۔'
         : 'Impeccable bubble packaging and the flip-top dispensing cap makes daily pouring mess-free. Our family uses the 750ml bottle for healthy salad dressings.',
-      product: language === 'ur' ? 'زیتون کا تیل 750ml' : 'Zaitoon Oil 750ml'
+      product: language === 'ur' ? 'زیتون کا تیل 750ml' : 'Zaitoon Oil 750ml',
+      rating: 5,
+      isUserSubmitted: false,
+      date: ''
     },
     {
       name: language === 'ur' ? 'عثمان علی' : 'Usman Ali',
@@ -80,8 +115,24 @@ export const Home: React.FC = () => {
       text: language === 'ur'
         ? 'کراچی میں چوتھے دن کوریئر نے پارسل پہنچا دیا۔ میں نے موقع پر کیش ادا کیا۔ بوتل کے ساتھ سیل اور لیبلنگ سو فیصد اوریجنل ہے۔'
         : 'Arrived in Karachi in 4 days via courier. Paid cash on delivery at doorstep. Airtight bottle seal and authentic regional quality. Very satisfied.',
-      product: language === 'ur' ? 'زیتون کا تیل 500ml' : 'Zaitoon Oil 500ml'
+      product: language === 'ur' ? 'زیتون کا تیل 500ml' : 'Zaitoon Oil 500ml',
+      rating: 5,
+      isUserSubmitted: false,
+      date: ''
     }
+  ];
+
+  const allReviews = [
+    ...userReviews.map((ur) => ({
+      name: ur.name,
+      city: ur.city,
+      text: ur.text,
+      product: ur.product,
+      rating: ur.rating || 5,
+      isUserSubmitted: true,
+      date: ur.date
+    })),
+    ...defaultReviews
   ];
 
   return (
@@ -462,29 +513,48 @@ export const Home: React.FC = () => {
         E: REAL CUSTOMER REVIEWS (Placed below Packaging section)
       */}
       <section id="reviews" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 scroll-mt-24">
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
-            {language === 'ur' ? 'گاہکوں کا اطمینان' : 'Real Customer Experiences'}
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-forest-950">
-            {language === 'ur' ? 'ہمارے معزز خریداروں کی رائے' : 'Verified Reviews Across Pakistan'}
-          </h2>
-          <p className="text-xs sm:text-sm text-charcoal-600">
-            {language === 'ur'
-              ? 'پشاور، لاہور، اسلام آباد اور کراچی سے ہمارے باقاعدہ گاہکوں کے اصل تاثرات'
-              : 'Direct feedback from real customers who ordered and received their packages.'}
-          </p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-charcoal-200/60 pb-6">
+          <div className="text-center sm:text-left rtl:sm:text-right max-w-xl space-y-1.5">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">
+              {language === 'ur' ? 'گاہکوں کا اطمینان' : 'Real Customer Experiences'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-forest-950">
+              {language === 'ur' ? 'ہمارے معزز خریداروں کی رائے' : 'Verified Reviews Across Pakistan'}
+            </h2>
+            <p className="text-xs sm:text-sm text-charcoal-600">
+              {language === 'ur'
+                ? 'پشاور، لاہور، اسلام آباد اور کراچی سے ہمارے باقاعدہ گاہکوں کے اصل تاثرات'
+                : 'Direct feedback from real customers who ordered and received their packages.'}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsReviewModalOpen(true)}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-forest-950 hover:bg-forest-900 text-gold-300 border border-gold-400/40 text-xs font-bold shadow-md hover:shadow-lg transition-all active:scale-95 shrink-0"
+          >
+            <PenLine className="w-4 h-4 text-gold-400" />
+            <span>{language === 'ur' ? 'اپنی رائے درج کریں' : 'Write a Review'}</span>
+          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reviews.map((rev, i) => (
+          {allReviews.map((rev, i) => (
             <div
               key={i}
-              className="p-5 rounded-3xl bg-white border border-charcoal-200/80 shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+              className={`p-5 rounded-3xl bg-white border ${
+                rev.isUserSubmitted ? 'border-gold-400/60 ring-1 ring-gold-400/30' : 'border-charcoal-200/80'
+              } shadow-sm flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow relative overflow-hidden`}
             >
+              {rev.isUserSubmitted && (
+                <div className="absolute top-0 right-0 bg-gold-400 text-forest-950 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
+                  {language === 'ur' ? 'نیا ریویو' : 'Recent'}
+                </div>
+              )}
+
               <div className="space-y-2.5">
                 <div className="flex items-center gap-1 text-gold-500">
-                  {[...Array(5)].map((_, starIdx) => (
+                  {[...Array(rev.rating || 5)].map((_, starIdx) => (
                     <Star key={starIdx} className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
                   ))}
                 </div>
@@ -502,6 +572,7 @@ export const Home: React.FC = () => {
                     <span className="text-[10px] text-charcoal-500 flex items-center gap-1">
                       <MapPin className="w-2.5 h-2.5 text-emerald-600" />
                       {rev.city}
+                      {rev.date && <span className="text-[9px] text-charcoal-400"> • {rev.date}</span>}
                     </span>
                   </div>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-700 border border-emerald-200">
@@ -600,6 +671,13 @@ export const Home: React.FC = () => {
           <span>{language === 'ur' ? 'آرڈر کریں' : 'Order Now'}</span>
         </a>
       </div>
+
+      {/* Customer Review Submission Modal */}
+      <ReviewSubmissionModal
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        onSubmitReview={handleAddReview}
+      />
     </main>
   );
 };
