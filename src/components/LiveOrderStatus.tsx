@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, Clock, CheckCircle2, Flame } from 'lucide-react';
+import { Truck, Clock, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const getRealisticDailyOrderCount = (): number => {
@@ -42,26 +42,26 @@ export const LiveOrderStatus: React.FC<LiveOrderStatusProps> = ({
       <div
         className={`inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-forest-900/90 border border-emerald-500/50 shadow-md backdrop-blur-sm text-xs ${className}`}
       >
-        <span className="relative flex h-2.5 w-2.5 shrink-0">
+        <span className="relative flex h-2 w-2 shrink-0">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
 
         <span className="text-ivory-100 font-medium">
           {language === 'ur' ? (
             <>
-              لائیو اسٹیٹس: آج <span className="text-gold-300 font-bold">{orderCount} آرڈرز</span> پاکستان بھر میں روانہ کیے گئے
+              تصدیق شدہ روانگی: آج <span className="text-gold-300 font-bold">{orderCount} آرڈرز</span> پاکستان بھر میں روانہ
             </>
           ) : (
             <>
-              Live Status: <span className="text-gold-300 font-bold">{orderCount} orders</span> dispatched today across Pakistan
+              Verified Dispatch: <span className="text-gold-300 font-bold">{orderCount} orders</span> shipped today across Pakistan
             </>
           )}
         </span>
 
         <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-emerald-300/90 border-l border-emerald-700/60 pl-2 rtl:border-r rtl:border-l-0 rtl:pr-2 rtl:pl-0 font-semibold">
-          <Flame className="w-3 h-3 text-gold-400 shrink-0" />
-          <span>{language === 'ur' ? 'تیز ترسیل' : 'Fast COD'}</span>
+          <Truck className="w-3 h-3 text-gold-400 shrink-0" />
+          <span>{language === 'ur' ? 'کیش آن ڈیلیوری' : 'Cash on Delivery'}</span>
         </span>
       </div>
     );
@@ -76,26 +76,26 @@ export const LiveOrderStatus: React.FC<LiveOrderStatusProps> = ({
         {/* Left: Live status count */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-inner">
-            <span className="relative flex h-3 w-3">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
           </div>
 
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                {language === 'ur' ? 'لائیو ڈسپیچ اسٹیٹس' : 'Live Order & Dispatch Queue'}
+                {language === 'ur' ? 'تصدیق شدہ کوریئر ترسیل' : 'Verified Dispatch Queue'}
               </span>
               <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-400/30">
-                {language === 'ur' ? 'آج کی ترسیل' : 'Today'}
+                {language === 'ur' ? 'آج' : 'Today'}
               </span>
             </div>
             <div className="text-sm sm:text-base font-bold text-ivory-100 flex items-center gap-1.5 mt-0.5">
               <span className="text-gold-300 font-extrabold text-base sm:text-lg">{orderCount}</span>
               <span>
                 {language === 'ur'
-                  ? 'آرڈرز پاکستان بھر میں کیش آن ڈیلیوری پر روانہ'
+                  ? 'پارسل پاکستان بھر میں کیش آن ڈیلیوری پر روانہ'
                   : 'Parcels dispatched nationwide via TCS & Leopards'}
               </span>
             </div>
